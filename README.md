@@ -62,6 +62,39 @@ app.py
 The routes under `src/routers/api_v1/users.py` will be available under `/api/v1/users`.
 The same applies to the other files. The routes under `src/routers/api_v2/users.py` will be available under `/api/v2/users`.
 
+### Exclude Routers
+
+You can exclude routers from being registered by the router by defining the `EXCLUDED_ROUTERS` variable in the `__init__.py` file of any submodule of the `routers` module. All excluded routers will be bundled together and excluded from the registration process.
+
+For example, if you have the following directory structure:
+```
+routers
+|── __init__.py
+├── api_v1
+│   ├── __init__.py
+│   ├── users.py
+│   └── posts.py
+app.py
+```
+
+You can exclude the `users.py` router from being registered by defining the `EXCLUDED_ROUTERS` variable in the `api_v1/__init__.py` file.
+
+```python
+# src/routers/api_v1/__init__.py
+from . import users
+
+EXCLUDED_ROUTERS = [users]
+```
+
+You can also exclude an entire directory by defining the `EXCLUDED_ROUTERS` variable in the `__init__.py` file of the directory.
+
+```python
+# src/routers/__init__.py
+from . import api_v1
+
+EXCLUDED_ROUTERS = [api_v1]
+```
+
 
 ## Development
 
