@@ -3,7 +3,7 @@
 # Licensed under the MIT License
 
 from types import ModuleType
-from typing import Optional
+from typing import Optional, Set
 
 import fastapi
 
@@ -32,7 +32,7 @@ def extract_route_path(module_name: str) -> str:
     return endpoint_path
 
 
-def fetch_excluded_routers(router_module: ModuleType) -> set[ModuleType]:
+def fetch_excluded_routers(router_module: ModuleType) -> Set[ModuleType]:
     excluded_routers = set()
     if hasattr(router_module, constants.DEFAULT_EXCLUDED_ROUTERS):
         excluded_routers.update(getattr(router_module, constants.DEFAULT_EXCLUDED_ROUTERS))

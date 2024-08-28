@@ -4,6 +4,8 @@
 
 import importlib
 import pkgutil
+
+from typing import Set
 from types import ModuleType
 
 import fastapi
@@ -11,7 +13,7 @@ import fastapi
 from . import exceptions, utils
 
 
-Excluded = set[ModuleType]
+Excluded = Set[ModuleType]
 
 
 def _handle_package_module(module: ModuleType, excluded_routers: Excluded) -> None:
@@ -73,7 +75,7 @@ def _process_module(module: ModuleType, is_pkg: bool, excluded_routers: Excluded
 def auto_include_routers(application: fastapi.FastAPI, router_module: ModuleType) -> None:
     """Include all routers in the router module."""
 
-    excluded_routers: set[ModuleType] = utils.fetch_excluded_routers(router_module)
+    excluded_routers = utils.fetch_excluded_routers(router_module)
     packages = list(pkgutil.walk_packages(router_module.__path__, router_module.__name__ + "."))
     if len(packages) == 0:
         raise exceptions.InitializationError()
