@@ -11,6 +11,9 @@ files = [
     {file = "annotated_types-0.7.0.tar.gz", hash = "sha256:aff07c09a53a08bc8cfccb9c85b05f1aa9a2a6f23728d790723543408344ce89"},
 ]
 
+[package.dependencies]
+typing-extensions = {version = ">=4.0.0", markers = "python_version < \"3.9\""}
+
 [[package]]
 name = "anyio"
 version = "4.4.0"
@@ -470,5 +473,5 @@ files = [
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.9.1"
-content-hash = "73552432cdaa511431e8e0042809daeb36510c0b1573fc1ebcc6fe7b79fc9a1c"
+python-versions = "^3.8"
+content-hash = "1313c22961e59f1e964a8f4b2a462aabdc729cd397a706b5e3612e33f464d167"
