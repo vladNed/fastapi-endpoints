@@ -1,33 +1,54 @@
-from typing import Generator
+from types import ModuleType
+import fastapi
 import pytest
-
 from unittest import mock
-from fastapi_endpoints import router
 
 
-FAKE_APP_PATH_MODULE = "/fake/path/to"
-FAKE_APP_PATH_FILE = f"{FAKE_APP_PATH_MODULE}/app.py"
+@pytest.fixture
+def mock_application() -> mock.Mock:
+    return mock.Mock(spec=fastapi.FastAPI())
 
 
-@pytest.fixture()
-def mock_routers_path_exist() -> Generator[None, None, None]:
-    with (
-        mock.patch.object(router, '_get_caller_frame', return_value=FAKE_APP_PATH_FILE),
-        mock.patch.object(router.pathlib.Path, 'exists', return_value=True)
-    ):
-        yield
+@pytest.fixture
+def mock_router_one():
+    mock_router1_module = mock.Mock(spec=ModuleType)
+    mock_router1_module.router = mock.Mock(spec=fastapi.APIRouter)
+    mock_router1_module.__name__ = "test_app.routers.api.one"
+
+    return mock_router1_module
 
 
-@pytest.fixture()
-def mock_routers_path_not_exist() -> Generator[None, None, None]:
-    with (
-        mock.patch.object(router, '_get_caller_frame', return_value=FAKE_APP_PATH_FILE),
-        mock.patch.object(router.pathlib.Path, 'exists', return_value=False)
-    ):
-        yield
+@pytest.fixture
+def mock_router_two():
+    mock_router2_module = mock.Mock(spec=ModuleType)
+    mock_router2_module.router = mock.Mock(spec=fastapi.APIRouter)
+    mock_router2_module.__name__ = "test_app.routers.api.two"
+
+    return mock_router2_module
 
 
-@pytest.fixture()
-def mock_initialization_error() -> Generator[None, None, None]:
-    with mock.patch.object(router, '_get_caller_frame', side_effect=router.exceptions.InitializationError):
-        yield
+@pytest.fixture
+def mock_routers_module():
+    test_routers_module = mock.Mock(spec=ModuleType)
+    test_routers_module.__path__ = ["test_app"]
+    test_routers_module.__name__ = "test_app"
+
+    return test_routers_module
+
+
+@pytest.fixture
+def mock_module_without_router():
+    test_routers_module = mock.Mock(spec=ModuleType)
+    test_routers_module.__name__ = "test_app.routers.api.three"
+
+    return test_routers_module
+
+
+@pytest.fixture
+def mock_incorrect_routers_module():
+    test_routers_module = mock.Mock(spec=ModuleType)
+    test_routers_module.__path__ = ["test_app"]
+    test_routers_module.__name__ = "test_app"
+
+    with mock.patch("pkgutil.walk_packages", return_value=[]):
+        return test_routers_module

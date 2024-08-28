@@ -1,49 +1,55 @@
 import pytest
-import pathlib
-
-from unittest.mock import MagicMock, patch
-
-from fastapi_endpoints.router import _get_router_dir, exceptions, constants, _get_caller_frame
+from unittest import mock
+from fastapi_endpoints import auto_include_routers, exceptions
 
 
-def test_get_caller_frame_success():
-    mock_frame = MagicMock()
-    mock_module = MagicMock()
-    mock_module.__file__ = '/fake/path/to/caller.py'
-    with patch('inspect.stack', return_value=[None, None, None, mock_frame]), \
-         patch('inspect.getmodule', return_value=mock_module):
-        caller_frame = _get_caller_frame()
-        assert caller_frame == '/fake/path/to/caller.py'
-
-
-def test_get_caller_frame_module_none():
-    mock_frame = MagicMock()
-    with patch('inspect.stack', return_value=[None, None, None, mock_frame]), \
-         patch('inspect.getmodule', return_value=None):
-        with pytest.raises(exceptions.InitializationError):
-            _get_caller_frame()
-
-
-def test_get_caller_frame_file_none():
-    mock_frame = MagicMock()
-    mock_module = MagicMock()
-    mock_module.__file__ = None
-    with patch('inspect.stack', return_value=[None, None, None, mock_frame]), \
-         patch('inspect.getmodule', return_value=mock_module):
-        with pytest.raises(exceptions.InitializationError):
-            _get_caller_frame()
-
-
-def test_get_router_dir_exists(mock_routers_path_exist):
-    router_dir = _get_router_dir()
-    assert router_dir == (pathlib.Path('/fake/path/to') / constants.DEFAULT_ENDPOINTS_ROOT)
-
-
-def test_get_router_dir_not_exists(mock_routers_path_not_exist):
-    with pytest.raises(exceptions.RouterDirNotFound):
-        _get_router_dir()
-
-
-def test_get_caller_frame_initialization_error(mock_initialization_error):
+def test_auto_include_routers_incorrect_module(
+    mock_incorrect_routers_module, mock_application
+):
     with pytest.raises(exceptions.InitializationError):
-        _get_router_dir()
+        auto_include_routers(mock_application, mock_incorrect_routers_module)
+
+
+def test_auto_include_routers(
+    mock_routers_module, mock_application, mock_router_one, mock_router_two
+):
+    calls = [
+        mock.call(mock_router_one.router, prefix="/api/one"),
+        mock.call(mock_router_two.router, prefix="/api/two"),
+    ]
+    with mock.patch(
+        "pkgutil.walk_packages",
+        return_value=[
+            (None, mock_routers_module.__name__, True),
+            (None, mock_router_one.__name__, False),
+            (None, mock_router_two.__name__, False),
+        ],
+    ):
+        with mock.patch(
+            "importlib.import_module",
+            side_effect=[mock_routers_module, mock_router_one, mock_router_two],
+        ) as mock_import:
+            auto_include_routers(mock_application, mock_routers_module)
+            assert mock_import.call_count == 3
+            assert mock_application.include_router.call_count == 2
+            mock_application.include_router.assert_has_calls(calls)
+
+
+def test_auto_include_router_module_with_no_router(
+    mock_routers_module,
+    mock_application,
+    mock_module_without_router,
+):
+    with mock.patch(
+        "pkgutil.walk_packages",
+        return_value=[
+            (None, mock_routers_module.__name__, True),
+            (None, mock_module_without_router.__name__, False),
+        ],
+    ):
+        with mock.patch(
+            "importlib.import_module",
+            side_effect=[mock_routers_module, mock_module_without_router],
+        ):
+            with pytest.raises(exceptions.RouterNotFound):
+                auto_include_routers(mock_application, mock_routers_module)

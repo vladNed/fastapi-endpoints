@@ -1,49 +1,33 @@
-import inspect
-import pathlib
+# fastapi-endpoints
+# Copyright (c) 2024 Vlad Nedelcu
+# Licensed under the MIT License
 
+import pkgutil
+import importlib
+from types import ModuleType
 import fastapi
 
-from . import constants, exceptions
+from . import exceptions, utils
 
 
-def _get_caller_frame() -> str:
-    """Get the caller frame to extract the caller module.
-
-    :raises InitializationError: If the caller frame is not found.
-    :returns str: The caller frame.
-    """
-    caller_frame = inspect.stack()[3]
-    caller_module = inspect.getmodule(caller_frame[0])
-    if caller_module is None:
+def auto_include_routers(application: fastapi.FastAPI, router_module: ModuleType) -> None:
+    """Include all routers in the router module."""
+    packages = pkgutil.walk_packages(router_module.__path__, router_module.__name__ + ".")
+    if len(list(packages)) == 0:
         raise exceptions.InitializationError()
 
-    caller_file_path = caller_module.__file__
-    if not caller_file_path:
-        raise exceptions.InitializationError()
+    for _, module_name, is_pkg in packages:
+        module = importlib.import_module(module_name)
+        if is_pkg:
+            continue
 
-    return caller_file_path
+        route_path = utils.extract_route_path(module_name)
+        route_prefix = utils.format_prefix(route_path)
+        module_router = utils.get_module_router(module)
+        if module_router is None:
+            raise exceptions.RouterNotFound()
 
-
-def _get_router_dir() -> pathlib.Path:
-    """Get the path to the router endpoint directory.
-
-    :raises RouterDirNotFound: If the directory is not found.
-    :raises InitializationError: If the caller frame is not found.
-
-    :returns pathlib.Path: The path to the router endpoint directory.
-    """
-    caller_file_path = _get_caller_frame()
-    router_dir = pathlib.Path(caller_file_path).parent / constants.DEFAULT_ENDPOINTS_ROOT
-    if not router_dir.exists():
-        raise exceptions.RouterDirNotFound()
-
-    return router_dir
-
-
-def include_routers(application: fastapi.FastAPI) -> None:
-    """Include all routers in the router directory.
-
-    :param application fastapi.FastAPI: The FastAPI application.
-    """
-    _get_router_dir()
-    print("Works")
+        application.include_router(
+            module_router,
+            prefix=route_prefix
+        )

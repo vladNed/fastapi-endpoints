@@ -208,3 +208,7 @@ Pipfile.lock
 
 # Poetry
 /requirements.txt
+
+# IDE
+/.vscode
+/.idea

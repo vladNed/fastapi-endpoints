@@ -1,5 +1,9 @@
-from .router import include_routers
+# fastapi-endpoints
+# Copyright (c) 2024 Vlad Nedelcu
+# Licensed under the MIT License
+
+from .router import auto_include_routers
 
 __all__ = [
-    "include_routers"
+    "auto_include_routers"
 ]

@@ -1,3 +1,6 @@
+# fastapi-endpoints
+# Copyright (c) 2024 Vlad Nedelcu
+# Licensed under the MIT License
 
 class BaseOSException(Exception):
     message: str
@@ -7,8 +10,8 @@ class BaseOSException(Exception):
 
 
 class InitializationError(BaseOSException):
-    message = "Could not init the FastAPI app"
+    message = "Could not initialize routes as modules are not defined correctly"
 
 
-class RouterDirNotFound(BaseOSException):
-    message = "Routers directory is not defined"
+class RouterNotFound(BaseOSException):
+    message = "Router module does not have an instance of APIRouter"
