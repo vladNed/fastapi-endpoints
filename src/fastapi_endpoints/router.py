@@ -27,7 +27,4 @@ def auto_include_routers(application: fastapi.FastAPI, router_module: ModuleType
         if module_router is None:
             raise exceptions.RouterNotFound()
 
-        application.include_router(
-            module_router,
-            prefix=route_prefix
-        )
+        application.include_router(module_router, prefix=route_prefix)

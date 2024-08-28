@@ -4,6 +4,4 @@
 
 from .router import auto_include_routers
 
-__all__ = [
-    "auto_include_routers"
-]
+__all__ = ["auto_include_routers"]

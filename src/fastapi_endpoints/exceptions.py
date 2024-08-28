@@ -2,6 +2,7 @@
 # Copyright (c) 2024 Vlad Nedelcu
 # Licensed under the MIT License
 
+
 class BaseOSException(Exception):
     message: str
 

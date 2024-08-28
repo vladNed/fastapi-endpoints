@@ -3,16 +3,12 @@ from unittest import mock
 from fastapi_endpoints import auto_include_routers, exceptions
 
 
-def test_auto_include_routers_incorrect_module(
-    mock_incorrect_routers_module, mock_application
-):
+def test_auto_include_routers_incorrect_module(mock_incorrect_routers_module, mock_application):
     with pytest.raises(exceptions.InitializationError):
         auto_include_routers(mock_application, mock_incorrect_routers_module)
 
 
-def test_auto_include_routers(
-    mock_routers_module, mock_application, mock_router_one, mock_router_two
-):
+def test_auto_include_routers(mock_routers_module, mock_application, mock_router_one, mock_router_two):
     calls = [
         mock.call(mock_router_one.router, prefix="/api/one"),
         mock.call(mock_router_two.router, prefix="/api/two"),
