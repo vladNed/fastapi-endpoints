@@ -25,10 +25,16 @@ def test_auto_include_routers(mock_routers_module, mock_application, mock_router
     ):
         with mock.patch(
             "importlib.import_module",
-            side_effect=[mock_routers_module, mock_router_one, mock_router_two],
+            side_effect=[
+                mock_routers_module,
+                mock_router_one,
+                mock_routers_module,
+                mock_router_two,
+                mock_routers_module,
+            ],
         ) as mock_import:
             auto_include_routers(mock_application, mock_routers_module)
-            assert mock_import.call_count == 3
+            assert mock_import.call_count == 5
             assert mock_application.include_router.call_count == 2
             mock_application.include_router.assert_has_calls(calls)
 
@@ -47,7 +53,7 @@ def test_auto_include_router_module_with_no_router(
     ):
         with mock.patch(
             "importlib.import_module",
-            side_effect=[mock_routers_module, mock_module_without_router],
+            side_effect=[mock_routers_module, mock_module_without_router, mock_routers_module],
         ):
             with pytest.raises(exceptions.RouterNotFound):
                 auto_include_routers(mock_application, mock_routers_module)

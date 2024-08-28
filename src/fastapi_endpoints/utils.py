@@ -30,3 +30,11 @@ def extract_route_path(module_name: str) -> str:
         raise exceptions.InitializationError()
 
     return endpoint_path
+
+
+def fetch_excluded_routers(router_module: ModuleType) -> set[ModuleType]:
+    excluded_routers = set()
+    if hasattr(router_module, constants.DEFAULT_EXCLUDED_ROUTERS):
+        excluded_routers.update(getattr(router_module, constants.DEFAULT_EXCLUDED_ROUTERS))
+
+    return excluded_routers

@@ -38,3 +38,11 @@ def test_extract_route_path():
 
     with pytest.raises(exceptions.InitializationError):
         utils.extract_route_path("invalid_module_name")
+
+
+def test_get_excluded_routers_no_routers(mock_router_one):
+    assert utils.fetch_excluded_routers(mock_router_one) == set()
+
+
+def test_get_excluded_routers(mock_excluded_routers_router):
+    assert utils.fetch_excluded_routers(mock_excluded_routers_router) == {"test_app.routers.api.one"}

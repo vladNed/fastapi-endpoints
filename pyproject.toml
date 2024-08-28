@@ -22,7 +22,7 @@ pytest-cov = "^5.0.0"
 
 
 [tool.pytest.ini_options]
-addopts = "-r a --durations 5 -vv --cov=src/fastapi_endpoints --cov-report term-missing --no-cov-on-fail --cov-fail-under 90"
+addopts = "-r a --durations 5 -vv --cov=src/fastapi_endpoints --cov-report term-missing --no-cov-on-fail --cov-fail-under 95"
 console_output_style = "count"
 log_cli = "1"
 log_level = "DEBUG"
