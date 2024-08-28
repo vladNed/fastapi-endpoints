@@ -7,7 +7,6 @@ license = "MIT"
 readme = "README.md"
 packages = [
     { include="fastapi_endpoints", from="src" },
-    { include="example_app", from="src" }
 ]
 
 [tool.poetry.dependencies]
