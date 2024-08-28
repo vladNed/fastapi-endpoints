@@ -2,9 +2,10 @@
 # Copyright (c) 2024 Vlad Nedelcu
 # Licensed under the MIT License
 
-import pkgutil
 import importlib
+import pkgutil
 from types import ModuleType
+
 import fastapi
 
 from . import exceptions, utils

@@ -1,7 +1,8 @@
 from types import ModuleType
+from unittest import mock
+
 import fastapi
 import pytest
-from unittest import mock
 
 
 @pytest.fixture

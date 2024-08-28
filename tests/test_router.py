@@ -1,5 +1,7 @@
-import pytest
 from unittest import mock
+
+import pytest
+
 from fastapi_endpoints import auto_include_routers, exceptions
 
 

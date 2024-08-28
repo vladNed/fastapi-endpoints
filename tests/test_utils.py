@@ -1,10 +1,10 @@
-import pytest
-import fastapi
-
-from unittest import mock
 from types import ModuleType
+from unittest import mock
 
-from fastapi_endpoints import constants, utils, exceptions
+import fastapi
+import pytest
+
+from fastapi_endpoints import constants, exceptions, utils
 
 FORMAT_TEST_CASES = {
     "UNDERSCORE_REPLACE": ("foo_bar", "foo/bar"),
