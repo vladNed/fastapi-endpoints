@@ -1,0 +1,2 @@
+
+DEFAULT_ENDPOINTS_ROOT = "routers"

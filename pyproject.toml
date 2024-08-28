@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "fastapi-endpoints"
+version = "0.1.0"
+description = "A file based router for FastAPI that helps with defining endpoints"
+authors = ["Vlad Nedelcu <nedelcuvd@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include="fastapi_endpoints", from="src" },
+    { include="example_app", from="src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.9.1"
+fastapi = "^0.112.2"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.2"
+isort = "^5.13.2"
+pytest = "^8.3.2"
+pytest-cov = "^5.0.0"
+
+[tool.pytest.ini_options]
+addopts = "-r a --durations 5 -vv --cov=src/fastapi_endpoints --cov-report term-missing --no-cov-on-fail --cov-fail-under 90"
+console_output_style = "count"
+log_cli = "1"
+log_level = "DEBUG"
+log_format = "%(levelname)-8s | %(name)s:%(lineno)d | %(message)s"
+testpaths = [
+    "tests"
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
