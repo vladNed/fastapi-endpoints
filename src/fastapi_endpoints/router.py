@@ -4,14 +4,12 @@
 
 import importlib
 import pkgutil
-
-from typing import Set
 from types import ModuleType
+from typing import Set
 
 import fastapi
 
 from . import exceptions, utils
-
 
 Excluded = Set[ModuleType]
 
