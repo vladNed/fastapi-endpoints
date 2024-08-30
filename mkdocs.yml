@@ -1,0 +1,67 @@
+# Site Settings
+site_name: fastapi-endpoints
+site_url: https://vladNed.github.com/fastapi-endpoints/
+site_author: Vlad Nedelcu <vlad@indexone.co>
+
+# Repo Settings
+repo_url: https://github.com/vladNed/fastapi-endpoints/
+repo_name: vladNed/fastapi-endpoints
+
+# Navigation and content
+nav:
+  - Introduction: index.md
+  - Quick Start: quick-start.md
+  - Guides:
+      Auto Discovery: auto-discovery.md
+      Exclude Routers: exclude-routers.md
+  - Contributing: CONTRIBUTING.md
+
+# Theme Customization Settings
+theme:
+  name: material 
+  language: en
+  palette:
+    - scheme: default
+      primary: deep orange
+      accent: red
+      toggle:
+        icon: material/brightness-7
+        name: Dark Mode
+
+    - scheme: slate
+      primary: deep orange
+      accent: red
+      toggle:
+        icon: material/brightness-4
+        name: Light Mode
+  font:
+    text: IBM Plex Mono
+    code: IBM Plex Mono
+  logo: assets/logo.png
+  favicon: assets/endpoints-favicon.ico
+  features:
+    - navigation.footer
+    - content.code.copy
+    - content.code.select
+
+extra:
+  social:
+    - icon: fontawesome/brands/threads
+      link: https://instagram.com/vladmeisteer/
+      name: vladNed on Threads
+    - icon: fontawesome/solid/envelope
+      link: mailto:vlad@indexone.co
+      name: Email me at work
+
+extra_css:
+  - stylesheets/extra.css
+
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
