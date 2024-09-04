@@ -18,7 +18,7 @@ nav:
 
 # Theme Customization Settings
 theme:
-  name: material 
+  name: material
   language: en
   palette:
     - scheme: default
@@ -35,7 +35,7 @@ theme:
         icon: material/brightness-4
         name: Light Mode
   font:
-    text: IBM Plex Mono
+    text: Inter
     code: IBM Plex Mono
   logo: assets/logo.png
   favicon: assets/endpoints-favicon.ico
@@ -47,8 +47,11 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/threads
-      link: https://instagram.com/vladmeisteer/
+      link: https://www.threads.net/@vladmeisteer
       name: vladNed on Threads
+    - icon: fontawesome/brands/github
+      link: https://github.com/vladNed
+      name: vladNed on GitHub
     - icon: fontawesome/solid/envelope
       link: mailto:vlad@indexone.co
       name: Email me at work
@@ -65,3 +68,5 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - admonition
+  - pymdownx.details

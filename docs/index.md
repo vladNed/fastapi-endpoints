@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">fastapi-endpoints</h1>
-<p align="center" >:: Effortless routing, simplified ::</p>
+<p align="center" >Effortless routing, simplified</p>
 
 ---
 
@@ -28,9 +28,9 @@ fastapi-endpoints behaves as a plugin for:
 
 ## Installation
 
-Create and activate a virtual environment. Some options are: 
+Create and activate a virtual environment. Some options are:
 
-* **[venv](https://docs.python.org/3/library/venv.html)** 
+* **[venv](https://docs.python.org/3/library/venv.html)**
 * **[pyenv](https://github.com/pyenv/pyenv)**, which has a modern approach
 
 ### Using `pip`
