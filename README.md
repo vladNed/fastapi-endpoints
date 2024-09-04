@@ -6,6 +6,10 @@ This is a file-based router for FastAPI that automatically discovers and registe
 This tool simplifies the organization and scaling of your FastAPI projects by allowing you to structure your endpoints in a modular way.
 With `fastapi-endpoints`, you can easily manage complex applications by keeping your routes clean, intuitive, and maintainable.
 
+Please refer to the documentation here:
+
+- **[Documentation](https://vladned.github.io/fastapi-endpoints/)**
+
 ## Installation
 
 ```bash
