@@ -16,7 +16,7 @@
         <link rel="prev" href="../quick-start/">
       
       
-        <link rel="next" href="../CONTRIBUTING/">
+        <link rel="next" href="../exclude-routers/">
       
       
       <link rel="icon" href="../assets/endpoints-favicon.ico">
@@ -411,7 +411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exclude-routers.md" class="md-nav__link">
+      <a href="../exclude-routers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -528,7 +528,27 @@
 <p>There should not be any python module (beside <code>__init__.py</code>) without an instance of a router. The app will raise an error if the case is applicable.</p>
 </div>
 <h2 id="prefix-format">Prefix format</h2>
-<p>The prefix for an endpoint is created from the path where the file :w</p>
+<p>The prefix for any router is obtained by the path to the file relative to the <code>routers</code> directory.</p>
+<p>For example, if you have the following directory structure:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>routers
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>|── __init__.py
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── api_v1
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   ├── __init__.py
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   ├── users.py
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   └── posts.py
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>|── api_v2
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>|    ├── __init__.py
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>|    ├── users.py
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>|    └── posts.py
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>app.py
+</span></code></pre></div>
+<p>For each router file, the prefix will be as follows:</p>
+<ul>
+<li><code>src/routers/api_v1/users.py</code> -&gt; <code>/api/v1/users</code></li>
+<li><code>src/routers/api_v1/posts.py</code> -&gt; <code>/api/v1/posts</code></li>
+<li><code>src/routers/api_v2/users.py</code> -&gt; <code>/api/v2/users</code></li>
+<li><code>src/routers/api_v2/posts.py</code> -&gt; <code>/api/v2/posts</code></li>
+</ul>
 
 
 
@@ -575,13 +595,13 @@
         
         
           
-          <a href="../CONTRIBUTING/" class="md-footer__link md-footer__link--next" aria-label="Next: Contributing">
+          <a href="../exclude-routers/" class="md-footer__link md-footer__link--next" aria-label="Next: Exclude Routers">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Contributing
+                Exclude Routers
               </div>
             </div>
             <div class="md-footer__button md-icon">
