@@ -55,7 +55,7 @@ The project structure should contain the directory `routers/`, for example this:
 
 ```bash hl_lines="1"
 routers
-|── __init__.py
+├── __init__.py
 ├── api_v1
 │   ├── __init__.py
 │   ├── users.py
@@ -102,7 +102,7 @@ In this example, the `routers/dev/posts.py` router will be excluded.
 
 ``` hl_lines="7 8 9"
 routers
-|── __init__.py
+├── __init__.py
 ├── api_v1
 │   ├── __init__.py
 │   ├── users.py
