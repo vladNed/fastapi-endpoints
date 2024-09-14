@@ -5,6 +5,7 @@
 This is a file-based router for FastAPI that automatically discovers and registers route files based on their filenames.
 This tool simplifies the organization and scaling of your FastAPI projects by allowing you to structure your endpoints in a modular way.
 With `fastapi-endpoints`, you can easily manage complex applications by keeping your routes clean, intuitive, and maintainable.
+This project is inspired from [SettleAPI/settle-fastapi-extensions](https://github.com/SettleAPI/settle-fastapi-extensions)
 
 Please refer to the documentation here:
 

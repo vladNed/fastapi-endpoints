@@ -11,7 +11,7 @@ You can exclude routers from being registered by the router by defining the `EXC
 For example, if you have the following directory structure:
 ```
 routers
-|── __init__.py
+├── __init__.py
 ├── api_v1
 │   ├── __init__.py
 │   ├── users.py

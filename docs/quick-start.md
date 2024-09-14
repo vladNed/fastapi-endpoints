@@ -7,7 +7,7 @@ First, be sure you have a python environment created and activated.
 Create a project with the following structure:
 ```
 routers
-|── items.py
+├── items.py
 └── __init__.py
 app.py
 __init__.py
@@ -57,7 +57,7 @@ An example of an existing project structure:
 
 ```
 routers
-|── items.py
+├── items.py
 └── __init__.py
 app.py
 __init__.py
