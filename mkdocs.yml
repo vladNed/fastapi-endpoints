@@ -60,9 +60,6 @@ extra:
       link: mailto:vlad@indexone.co
       name: Email me at work
 
-extra_javascript:
-  - js/extra.js
-
 extra_css:
   - stylesheets/extra.css
 
