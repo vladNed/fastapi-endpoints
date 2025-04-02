@@ -20,6 +20,7 @@ nav:
 theme:
   name: material
   language: en
+  custom_dir: docs/overrides
   palette:
     - scheme: default
       primary: deep orange
@@ -46,6 +47,9 @@ theme:
 
 extra:
   social:
+    - icon: fontawesome/solid/globe
+      link: https://safefiles.app
+      name: SafeFiles - Secure File Sharing
     - icon: fontawesome/brands/threads
       link: https://www.threads.net/@vladmeisteer
       name: vladNed on Threads
@@ -56,9 +60,11 @@ extra:
       link: mailto:vlad@indexone.co
       name: Email me at work
 
+extra_javascript:
+  - js/extra.js
+
 extra_css:
   - stylesheets/extra.css
-
 
 markdown_extensions:
   - pymdownx.highlight:
