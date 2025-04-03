@@ -11,7 +11,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-fastapi = "^0.112.2"
+fastapi = ">=0.112.4"
 
 
 [tool.poetry.group.dev.dependencies]
