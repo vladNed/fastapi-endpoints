@@ -2,27 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://vladNed.github.com/fastapi-endpoints/</loc>
-         <lastmod>2025-04-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://vladNed.github.com/fastapi-endpoints/CONTRIBUTING/</loc>
-         <lastmod>2025-04-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://vladNed.github.com/fastapi-endpoints/auto-discovery/</loc>
-         <lastmod>2025-04-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://vladNed.github.com/fastapi-endpoints/exclude-routers/</loc>
-         <lastmod>2025-04-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://vladNed.github.com/fastapi-endpoints/quick-start/</loc>
-         <lastmod>2025-04-02</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-12-15</lastmod>
     </url>
 </urlset>
