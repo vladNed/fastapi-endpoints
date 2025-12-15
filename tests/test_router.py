@@ -1,16 +1,23 @@
 from unittest import mock
 
+import fastapi
 import pytest
 
 from fastapi_endpoints import auto_include_routers, exceptions
 
+from data.app import app
 
-def test_auto_include_routers_incorrect_module(mock_incorrect_routers_module, mock_application):
+
+def test_auto_include_routers_incorrect_module(
+    mock_incorrect_routers_module, mock_application
+):
     with pytest.raises(exceptions.InitializationError):
         auto_include_routers(mock_application, mock_incorrect_routers_module)
 
 
-def test_auto_include_routers(mock_routers_module, mock_application, mock_router_one, mock_router_two):
+def test_auto_include_routers(
+    mock_routers_module, mock_application, mock_router_one, mock_router_two
+):
     calls = [
         mock.call(mock_router_one.router, prefix="/api/one"),
         mock.call(mock_router_two.router, prefix="/api/two"),
@@ -53,7 +60,27 @@ def test_auto_include_router_module_with_no_router(
     ):
         with mock.patch(
             "importlib.import_module",
-            side_effect=[mock_routers_module, mock_module_without_router, mock_routers_module],
+            side_effect=[
+                mock_routers_module,
+                mock_module_without_router,
+                mock_routers_module,
+            ],
         ):
             with pytest.raises(exceptions.RouterNotFound):
                 auto_include_routers(mock_application, mock_routers_module)
+
+
+def test_include_root_file_endpoints():
+    tables_routes = []
+    for route in app.routes:
+        if not isinstance(route, fastapi.routing.APIRoute):
+            continue
+        if route.path.startswith("/api/v1/tables"):
+            tables_routes.append(route.path)
+
+    assert tables_routes == [
+        "/api/v1/tables/docs/",
+        "/api/v1/tables/docs/create",
+        "/api/v1/tables/",
+        "/api/v1/tables/create",
+    ]

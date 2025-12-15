@@ -67,6 +67,24 @@ app.py
 The routes under `src/routers/api_v1/users.py` will be available under `/api/v1/users`.
 The same applies to the other files. The routes under `src/routers/api_v2/users.py` will be available under `/api/v2/users`.
 
+If you want to have a directory specific for multiple routes, you can create a `root.py` file within the directory. The routes defined in the `root.py` file will be registered under the directory prefix. For example, if you have the following directory structure:
+
+```
+routers
+|── __init__.py
+├── api_v1
+│   ├── __init__.py
+│   ├── users.py
+│   ├── posts.py
+│   └── tables
+│       ├── __init__.py
+│       ├── docs.py
+│       └── root.py
+app.py
+```
+
+The routes under `src/routers/api_v1/tables/root.py` will be available under `/api/v1/tables`, while the routes under `src/routers/api_v1/tables/docs.py` will be available under `/api/v1/tables/docs`.
+
 ### Exclude Routers
 
 You can exclude routers from being registered by the router by defining the `EXCLUDED_ROUTERS` variable in the `__init__.py` file of any submodule of the `routers` module. All excluded routers will be bundled together and excluded from the registration process.

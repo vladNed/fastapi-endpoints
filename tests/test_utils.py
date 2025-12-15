@@ -7,9 +7,9 @@ import pytest
 from fastapi_endpoints import constants, exceptions, utils
 
 FORMAT_TEST_CASES = {
-    "UNDERSCORE_REPLACE": ("foo_bar", "foo/bar"),
-    "MODULE_TO_PATH_REPLACE": ("foo.bar", "foo/bar"),
-    "UNDERSCORE_AND_MODULE_REPLACE": ("foo_bar.baz.qux", "foo/bar/baz/qux"),
+    "UNDERSCORE_REPLACE": ("foo_bar", "/foo/bar"),
+    "MODULE_TO_PATH_REPLACE": ("foo.bar", "/foo/bar"),
+    "UNDERSCORE_AND_MODULE_REPLACE": ("foo_bar.baz.qux", "/foo/bar/baz/qux"),
 }
 
 
@@ -32,12 +32,26 @@ def test_get_module_router_no_router():
     assert utils.get_module_router(mock_module) is None
 
 
-def test_extract_route_path():
-    module_name = f"some_module.{constants.DEFAULT_ENDPOINTS_ROOT}.endpoint"
-    assert utils.extract_route_path(module_name) == ".endpoint"
+EXTRACT_ROUTE_TEST_CASES = {
+    "BASIC_MODULE": (f"some_module.{constants.DEFAULT_ENDPOINTS_ROOT}.endpoint", "endpoint"),
+    "NESTED_MODULE": (f"some_module.{constants.DEFAULT_ENDPOINTS_ROOT}.nested.endpoint", "nested.endpoint"),
+    "ROOT_MODULE": (f"some_module.{constants.DEFAULT_ENDPOINTS_ROOT}.nested.root", "nested"),
+}
 
+
+@pytest.mark.parametrize(
+    "module_name, expected",
+    EXTRACT_ROUTE_TEST_CASES.values(),
+    ids=EXTRACT_ROUTE_TEST_CASES.keys()
+)
+def test_extract_route_path(module_name: str, expected: str):
+    assert utils.extract_route_path(module_name) == expected
+
+
+def test_extract_route_path_no_root():
+    mock_module_name = "some_module"
     with pytest.raises(exceptions.InitializationError):
-        utils.extract_route_path("invalid_module_name")
+        utils.extract_route_path(mock_module_name)
 
 
 def test_get_excluded_routers_no_routers(mock_router_one):
