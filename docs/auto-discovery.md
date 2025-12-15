@@ -42,3 +42,24 @@ For each router file, the prefix will be as follows:
 - `src/routers/api_v1/posts.py` -> `/api/v1/posts`
 - `src/routers/api_v2/users.py` -> `/api/v2/users`
 - `src/routers/api_v2/posts.py` -> `/api/v2/posts`
+
+
+## Root module
+
+If you want to have a directory specific for multiple routes, you can create a `root.py` file within the directory. The routes defined in the `root.py` file will be registered under the directory prefix. For example, if you have the following directory structure:
+
+```
+routers
+|── __init__.py
+├── api_v1
+│   ├── __init__.py
+│   ├── users.py
+│   ├── posts.py
+│   └── tables
+│       ├── __init__.py
+│       ├── docs.py
+│       └── root.py
+app.py
+```
+
+The routes under `src/routers/api_v1/tables/root.py` will be available under `/api/v1/tables`, while the routes under `src/routers/api_v1/tables/docs.py` will be available under `/api/v1/tables/docs`.

@@ -7,11 +7,13 @@ from typing import Optional, Set
 
 import fastapi
 
-from . import constants, exceptions
+import fastapi_endpoints.constants
+import fastapi_endpoints.exceptions
 
 
 def format_prefix(route_path: str) -> str:
-    return route_path.replace("_", "/").replace(".", "/")
+    formatted_path = route_path.replace("_", "/").replace(".", "/")
+    return "/" + formatted_path
 
 
 def get_module_router(module: ModuleType) -> Optional[fastapi.APIRouter]:
@@ -24,17 +26,27 @@ def get_module_router(module: ModuleType) -> Optional[fastapi.APIRouter]:
 
 
 def extract_route_path(module_name: str) -> str:
-    try:
-        _, endpoint_path = module_name.split(constants.DEFAULT_ENDPOINTS_ROOT)
-    except ValueError:
-        raise exceptions.InitializationError()
+    root = fastapi_endpoints.constants.DEFAULT_ENDPOINTS_ROOT
+    parts = module_name.split(".")
 
-    return endpoint_path
+    try:
+        root_index = parts.index(root)
+    except ValueError:
+        raise fastapi_endpoints.exceptions.InitializationError()
+
+    endpoint_parts = parts[root_index + 1:]
+
+    if endpoint_parts and endpoint_parts[-1] == "root":
+        endpoint_parts.pop()
+
+    return ".".join(endpoint_parts)
 
 
 def fetch_excluded_routers(router_module: ModuleType) -> Set[ModuleType]:
     excluded_routers = set()
-    if hasattr(router_module, constants.DEFAULT_EXCLUDED_ROUTERS):
-        excluded_routers.update(getattr(router_module, constants.DEFAULT_EXCLUDED_ROUTERS))
+    if hasattr(router_module, fastapi_endpoints.constants.DEFAULT_EXCLUDED_ROUTERS):
+        excluded_routers.update(
+            getattr(router_module, fastapi_endpoints.constants.DEFAULT_EXCLUDED_ROUTERS)
+        )
 
     return excluded_routers

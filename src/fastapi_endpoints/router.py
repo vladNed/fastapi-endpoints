@@ -9,7 +9,8 @@ from typing import Set
 
 import fastapi
 
-from . import exceptions, utils
+import fastapi_endpoints.utils
+import fastapi_endpoints.exceptions
 
 Excluded = Set[ModuleType]
 
@@ -26,7 +27,7 @@ def _handle_package_module(module: ModuleType, excluded_routers: Excluded) -> No
     if module in excluded_routers:
         return
 
-    excluded_routers.update(utils.fetch_excluded_routers(module))
+    excluded_routers.update(fastapi_endpoints.utils.fetch_excluded_routers(module))
 
 
 def _handle_non_package_module(module: ModuleType, excluded_routers: Excluded, application: fastapi.FastAPI) -> None:
@@ -46,11 +47,11 @@ def _handle_non_package_module(module: ModuleType, excluded_routers: Excluded, a
     if module in excluded_routers or package in excluded_routers:
         return
 
-    route_path = utils.extract_route_path(module.__name__)
-    route_prefix = utils.format_prefix(route_path)
-    module_router = utils.get_module_router(module)
+    route_path = fastapi_endpoints.utils.extract_route_path(module.__name__)
+    route_prefix = fastapi_endpoints.utils.format_prefix(route_path)
+    module_router = fastapi_endpoints.utils.get_module_router(module)
     if module_router is None:
-        raise exceptions.RouterNotFound()
+        raise fastapi_endpoints.exceptions.RouterNotFound()
 
     application.include_router(module_router, prefix=route_prefix)
 
@@ -64,6 +65,7 @@ def _process_module(module: ModuleType, is_pkg: bool, excluded_routers: Excluded
     :raises InitializationError: If the module is not defined correctly within
     :raises RouterNotFound: If the module does not contain an `APIRouter`
     """
+
     if is_pkg:
         _handle_package_module(module, excluded_routers)
     else:
@@ -73,10 +75,10 @@ def _process_module(module: ModuleType, is_pkg: bool, excluded_routers: Excluded
 def auto_include_routers(application: fastapi.FastAPI, router_module: ModuleType) -> None:
     """Include all routers in the router module."""
 
-    excluded_routers = utils.fetch_excluded_routers(router_module)
+    excluded_routers = fastapi_endpoints.utils.fetch_excluded_routers(router_module)
     packages = list(pkgutil.walk_packages(router_module.__path__, router_module.__name__ + "."))
     if len(packages) == 0:
-        raise exceptions.InitializationError()
+        raise fastapi_endpoints.exceptions.InitializationError()
 
     for _, module_name, is_pkg in packages:
         module = importlib.import_module(module_name)

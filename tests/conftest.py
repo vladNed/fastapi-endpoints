@@ -1,9 +1,17 @@
+from pathlib import Path
+import sys
+import logging
 from types import ModuleType
 from unittest import mock
 
 import fastapi
 import pytest
 
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
+
+logging.basicConfig(level=logging.DEBUG)
 
 @pytest.fixture
 def mock_application() -> mock.Mock:
