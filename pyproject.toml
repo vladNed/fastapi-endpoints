@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-endpoints"
-version = "0.1.1"
+version = "0.1.2"
 description = "A file based router for FastAPI that helps with defining endpoints"
 authors = ["Vlad Nedelcu <nedelcuvd@gmail.com>"]
 license = "MIT"
