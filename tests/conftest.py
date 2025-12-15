@@ -13,6 +13,7 @@ sys.path.insert(0, str(project_root))
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 @pytest.fixture
 def mock_application() -> mock.Mock:
     return mock.Mock(spec=fastapi.FastAPI())
@@ -20,7 +21,6 @@ def mock_application() -> mock.Mock:
 
 @pytest.fixture
 def mock_router_one():
-
     mock_router1_module = mock.Mock(spec=ModuleType)
     mock_router1_module.router = mock.Mock(spec=fastapi.APIRouter)
     mock_router1_module.__name__ = "test_app.routers.api.one"

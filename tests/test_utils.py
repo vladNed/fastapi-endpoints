@@ -40,9 +40,7 @@ EXTRACT_ROUTE_TEST_CASES = {
 
 
 @pytest.mark.parametrize(
-    "module_name, expected",
-    EXTRACT_ROUTE_TEST_CASES.values(),
-    ids=EXTRACT_ROUTE_TEST_CASES.keys()
+    "module_name, expected", EXTRACT_ROUTE_TEST_CASES.values(), ids=EXTRACT_ROUTE_TEST_CASES.keys()
 )
 def test_extract_route_path(module_name: str, expected: str):
     assert utils.extract_route_path(module_name) == expected

@@ -34,7 +34,7 @@ def extract_route_path(module_name: str) -> str:
     except ValueError:
         raise fastapi_endpoints.exceptions.InitializationError()
 
-    endpoint_parts = parts[root_index + 1:]
+    endpoint_parts = parts[root_index + 1 :]
 
     if endpoint_parts and endpoint_parts[-1] == "root":
         endpoint_parts.pop()
@@ -45,8 +45,6 @@ def extract_route_path(module_name: str) -> str:
 def fetch_excluded_routers(router_module: ModuleType) -> Set[ModuleType]:
     excluded_routers = set()
     if hasattr(router_module, fastapi_endpoints.constants.DEFAULT_EXCLUDED_ROUTERS):
-        excluded_routers.update(
-            getattr(router_module, fastapi_endpoints.constants.DEFAULT_EXCLUDED_ROUTERS)
-        )
+        excluded_routers.update(getattr(router_module, fastapi_endpoints.constants.DEFAULT_EXCLUDED_ROUTERS))
 
     return excluded_routers
