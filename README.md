@@ -1,6 +1,8 @@
 # FastAPI Endpoints
 
 [![CI checks](https://github.com/vladNed/fastapi-endpoints/actions/workflows/ci.yaml/badge.svg?branch=main&event=push)](https://github.com/vladNed/fastapi-endpoints/actions/workflows/ci.yaml)
+[![pypi](https://img.shields.io/badge/pypi-0.1.2-blue?style=flat)](https://pypi.org/project/fastapi-endpoints/)
+![coverage](https://img.shields.io/badge/coverage-99%25-orange)
 
 This is a file-based router for FastAPI that automatically discovers and registers route files based on their filenames.
 This tool simplifies the organization and scaling of your FastAPI projects by allowing you to structure your endpoints in a modular way.
