@@ -9,8 +9,8 @@ from typing import Set
 
 import fastapi
 
-import fastapi_endpoints.utils
 import fastapi_endpoints.exceptions
+import fastapi_endpoints.utils
 
 Excluded = Set[ModuleType]
 

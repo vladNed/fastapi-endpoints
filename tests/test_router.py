@@ -2,10 +2,9 @@ from unittest import mock
 
 import fastapi
 import pytest
+from data.app import app
 
 from fastapi_endpoints import auto_include_routers, exceptions
-
-from data.app import app
 
 
 def test_auto_include_routers_incorrect_module(mock_incorrect_routers_module, mock_application):
